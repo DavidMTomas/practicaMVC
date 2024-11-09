@@ -17,6 +17,7 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
 
     @Override
     public int insertar(Articulo object) {
+        //
 
         int filas = 0;
         String sql = "Insert into articulos values(?,?,?,?,?,?)";
@@ -43,7 +44,7 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
     public int actualizar(Articulo object) {
         int filas = 0;
         String sql2 = "Update articulos values(?,?,?,?,?,?)";
-        String sql = "Update articulo SET nombre=?, " +
+        String sql = "Update articulos SET nombre=?, " +
                 "precio=?, stock=?, imagen=?, descripcion=? " +
                 "WHERE id=?";
         try (PreparedStatement pst = conexion.prepareStatement(sql)) {
@@ -79,13 +80,13 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
     @Override
     public Articulo buscarPorId(String id) {
         String sql = "select * from articulos where id=?";
-        Articulo articulo = new Articulo();
+        Articulo articulo = null;
         try (PreparedStatement pst = conexion.prepareStatement(sql)) {
             pst.setString(1, id);
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-
+                articulo = new Articulo();
                 articulo.setId(rs.getString("id"));
                 articulo.setNombre(rs.getString("nombre"));
                 articulo.setPrecio(rs.getFloat("precio"));
@@ -130,14 +131,15 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
     public List obtenerPorNombre(String nombre) {
         List<Articulo> articulos = new ArrayList<>();
         String sql = "select * from articulos where nombre like ?";
-        Articulo articulo = new Articulo();
+
 
         try (PreparedStatement pst = conexion.prepareStatement(sql)) {
 
-            pst.setString(1, nombre);
+            pst.setString(1, "%" + nombre + "%");
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
+                Articulo articulo = new Articulo();
                 articulo.setId(rs.getString("id"));
                 articulo.setNombre(rs.getString("nombre"));
                 articulo.setPrecio(rs.getFloat("precio"));
@@ -154,15 +156,15 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
 
     @Override
     public int obtenerConteo() {
-       int filas = 0;
-       String sql = "select count(*) from articulos";
+        int filas = 0;
+        String sql = "select count(*) from articulos";
 
         try (PreparedStatement pst = conexion.prepareStatement(sql)) {
-        pst.executeQuery();
-        ResultSet rs = pst.getResultSet();
-        while (rs.next()) {
-            filas = rs.getInt(1);
-        }
+            pst.executeQuery();
+            ResultSet rs = pst.getResultSet();
+            while (rs.next()) {
+                filas = rs.getInt(1);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

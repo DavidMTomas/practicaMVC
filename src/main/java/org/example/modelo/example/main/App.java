@@ -19,10 +19,8 @@ public class App {
         ControladorArticulo ca = new ControladorArticulo(vista, modelo);
 
 
-
         vista.setLocationRelativeTo(null);
         vista.setVisible(true);
-
 
 
     }

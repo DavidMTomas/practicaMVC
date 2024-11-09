@@ -20,5 +20,10 @@ public class App {
 
 
 
+        vista.setLocationRelativeTo(null);
+        vista.setVisible(true);
+
+
+
     }
 }

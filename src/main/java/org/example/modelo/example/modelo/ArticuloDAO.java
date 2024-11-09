@@ -19,7 +19,7 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
     public int insertar(Articulo object) {
 
         int filas = 0;
-        String sql = "Insert into articulo values(?,?,?,?,?,?)";
+        String sql = "Insert into articulos values(?,?,?,?,?,?)";
 
         try (PreparedStatement pst = conexion.prepareStatement(sql)) {
 
@@ -42,7 +42,7 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
     @Override
     public int actualizar(Articulo object) {
         int filas = 0;
-        String sql2 = "Update articulo values(?,?,?,?,?,?)";
+        String sql2 = "Update articulos values(?,?,?,?,?,?)";
         String sql = "Update articulo SET nombre=?, " +
                 "precio=?, stock=?, imagen=?, descripcion=? " +
                 "WHERE id=?";
@@ -65,7 +65,7 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
     @Override
     public int eliminar(Articulo object) {
         int filas = 0;
-        String sql = "Delete from articulo where id=?";
+        String sql = "Delete from articulos where id=?";
         try (PreparedStatement pst = conexion.prepareStatement(sql)) {
             pst.setString(1, object.getId());
 
@@ -78,7 +78,7 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
 
     @Override
     public Articulo buscarPorId(String id) {
-        String sql = "select * from articulo where id=?";
+        String sql = "select * from articulos where id=?";
         Articulo articulo = new Articulo();
         try (PreparedStatement pst = conexion.prepareStatement(sql)) {
             pst.setString(1, id);
@@ -104,7 +104,7 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
     @Override
     public List obtenerTodos() {
         List<Articulo> articulos = new ArrayList<Articulo>();
-        String sql = "select * from articulo";
+        String sql = "select * from articulos";
 
         try (PreparedStatement pst = conexion.prepareCall(sql)) {
 
@@ -129,7 +129,7 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
     @Override
     public List obtenerPorNombre(String nombre) {
         List<Articulo> articulos = new ArrayList<>();
-        String sql = "select * from articulo where nombre like ?";
+        String sql = "select * from articulos where nombre like ?";
         Articulo articulo = new Articulo();
 
         try (PreparedStatement pst = conexion.prepareStatement(sql)) {
@@ -155,7 +155,7 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
     @Override
     public int obtenerConteo() {
        int filas = 0;
-       String sql = "select count(*) from articulo";
+       String sql = "select count(*) from articulos";
 
         try (PreparedStatement pst = conexion.prepareStatement(sql)) {
         pst.executeQuery();

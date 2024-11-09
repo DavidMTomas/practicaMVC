@@ -89,7 +89,16 @@ public class PracticaDAO implements InterfaceDAO<Articulo> {
 
     @Override
     public int obtenerConteo() {
-        return 0;
+        int filas = 0;
+        String sql = "SELECT COUNT(*) from articulos ";
+
+        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ResultSet registros = ps.executeQuery();
+            filas = registros.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return filas;
     }
 
 

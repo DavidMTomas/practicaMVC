@@ -14,6 +14,7 @@ public class ArticuloDAO implements InterfaceDAO<Articulo> {
         conexion = GestionBD.getConexion();
     }
 
+
     @Override
     public int insertar(Articulo object) {
 
